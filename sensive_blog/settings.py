@@ -1,9 +1,11 @@
 import os
+import mimetypes
 from environs import Env
 
 env = Env()
 env.read_env()
 
+mimetypes.add_type("application/javascript", ".js", True)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -20,11 +22,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    "debug_toolbar",
     'blog',
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -97,3 +100,8 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+    "localhost"
+]
